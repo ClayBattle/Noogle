@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Noogle</title>
+  <style>
+    body {
+      width: 200px; 
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      padding: 10px;
+      background-color: #2C2C2C;
+      color: #D3D3D3; 
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    button {
+      margin: 10px;
+      padding: 15px 20px; 
+      font-size: 16px; 
+      background-color: #1E90FF;
+      border: none;
+      border-radius: 12px;
+      color: #D3D3D3;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease; 
+    }
+    
+    button:hover {
+      background-color: #4682B4; /* Slightly darker blue on hover */
+      transform: scale(1.05); /* Slightly enlarge button on hover */
+    }
+    
+    button:active {
+      background-color: #4169E1; /* Darker blue when button is pressed */
+    }
+
+    textarea
+    {
+      margin: 10px;
+      padding: 15px 20px; 
+      width: 80%;
+      font-size: 16px; 
+      background-color: #2C2C2C; 
+      border: 1px solid #1E90FF;
+      border-radius: 12px;
+      color: #D3D3D3;
+    }
+
+
+    /*Must specify this field or the styles will not apply*/        
+    ::-webkit-scrollbar{
+      width: 10px;
+      cursor: pointer;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: #2C2C2C
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #4b5563;
+      border-radius: 12px;
+    }
+
+    /* Handle on hover, eyeballed color to be similar to linear's hover*/
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #5c697e;
+    }
+
+    ::-webkit-scrollbar-corner {
+      background-color: #2C2C2C
+    }
+
+    
+  </style>
+</head>
+<body>
+  <textarea id="documentName" rows="1" cols="20" placeholder="Enter doc name"></textarea>
+  <textarea id="documentLocation" rows="2" cols="20" placeholder="Enter doc location"></textarea>
+  <button id="createDocument">Create Document</button>
+  <script src="popup.js"></script>
+</body>
+</html>
