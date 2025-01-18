@@ -1,0 +1,18 @@
+{
+    "manifest_version": 3,
+    "name": "Noogle",
+    "version": "1.0",
+    "description": " creates a new Google Doc and places it within my internal doc structure within 1 minute.",
+    "permissions": [],
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+      "16": "icon.png",
+      "32": "icon.png",
+      "48": "icon.png",
+      "64": "icon.png",
+      "128": "icon.png"
+    }
+    }
+  }
+  
