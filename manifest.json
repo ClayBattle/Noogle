@@ -3,7 +3,13 @@
     "name": "Noogle",
     "version": "1.0",
     "description": " creates a new Google Doc and places it within my internal doc structure within 1 minute.",
-    "permissions": [],
+    "permissions": [
+      "identity",
+      "https://www.googleapis.com/*"
+    ],
+    "background": {
+      "scripts": ["auth.js"]
+    },
     "action": {
       "default_popup": "popup.html",
       "default_icon": {

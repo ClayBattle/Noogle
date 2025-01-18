@@ -13,3 +13,11 @@ Spawned out of the need for 1. better google drive document organization and 2. 
 
 # Attribution
 Icon - https://www.rawpixel.com/image/6479591/png-sticker-book
+
+
+# where to resume:
+1. configuring an oauth2.0 client
+
+
+other:
+2. looking into how templates work
