@@ -16,9 +16,10 @@ Icon - https://www.rawpixel.com/image/6479591/png-sticker-book
 
 
 # where to resume:
-1. troubleshoot errors
-2. make sure the... uh. thing actualyl works? the oauth?
-3. 
+1. figure out why importing auth prevents me from making alerts
+2. get the doc generation code working (not erroring)
+3. make sure the the oauth works
+4. Test SAFELY creating a doc.
 
 
 other:
