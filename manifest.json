@@ -2,13 +2,15 @@
     "manifest_version": 3,
     "name": "Noogle",
     "version": "1.0",
-    "description": " creates a new Google Doc and places it within my internal doc structure within 1 minute.",
+    "description": "Creates a new Google Doc and places it within my internal doc structure within 1 minute.",
     "permissions": [
-      "identity",
+    "identity"
+    ],
+    "host_permissions": [
       "https://www.googleapis.com/*"
     ],
     "background": {
-      "scripts": ["auth.js"]
+      "service_worker": "auth.js"
     },
     "action": {
       "default_popup": "popup.html",

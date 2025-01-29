@@ -16,7 +16,9 @@ Icon - https://www.rawpixel.com/image/6479591/png-sticker-book
 
 
 # where to resume:
-1. configuring an oauth2.0 client
+1. troubleshoot errors
+2. make sure the... uh. thing actualyl works? the oauth?
+3. 
 
 
 other:
