@@ -1,4 +1,4 @@
-import { CLIENT_ID } from "./credentials";
+// import { CLIENT_ID } from "./credentials";
 const SCOPES = 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/documents';
 
 export function authenticate(callback) {

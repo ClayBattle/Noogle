@@ -10,7 +10,8 @@
       "https://www.googleapis.com/*"
     ],
     "background": {
-      "service_worker": "auth.js"
+      "service_worker": "auth.js",
+      "type": "module"
     },
     "action": {
       "default_popup": "popup.html",

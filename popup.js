@@ -1,10 +1,10 @@
-import { authenticate } from "./auth";
+// import { authenticate } from "./auth";
 
 document.getElementById('createDocument').addEventListener('click', () => {
   // do something to get title
-  alert("Creating Google Doc");
   const documentName = document.getElementById('documentName').textContent;
-  alert(documentName)
+  alert(`Creating Google Doc with name ${documentName}`);
+
   if(documentName === "" || documentName === null){
     alert("Please enter a document name");
     return;
