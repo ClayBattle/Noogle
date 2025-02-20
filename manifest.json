@@ -4,10 +4,7 @@
     "version": "1.0",
     "description": "Creates a new Google Doc and places it within my internal doc structure within 1 minute.",
     "permissions": [
-    "identity"
-    ],
-    "host_permissions": [
-      "https://www.googleapis.com/*"
+    "identity", "storage"
     ],
     "background": {
       "service_worker": "auth.js",

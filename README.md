@@ -16,11 +16,9 @@ Icon - https://www.rawpixel.com/image/6479591/png-sticker-book
 
 
 # where to resume:
-1. figure out why importing auth prevents me from making alerts
-2. get the doc generation code working (not erroring)
-3. make sure the the oauth works
-4. Test SAFELY creating a doc.
-
+1. Clean up code
+2. remove bad oauth (non webapp)
+3. How do I make it so I dontneed to approve every new app opening?
 
 other:
 2. looking into how templates work
