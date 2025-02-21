@@ -4,7 +4,6 @@ import { getAccessToken } from './auth.js';
 document.getElementById('createDocument').addEventListener('click', async () => {
     // Get document title
     const documentName = document.getElementById('documentName').value;
-    alert(`Creating Google Doc with name ${documentName}`); //TODO: REMOVE THIS LINE when done testing
 
     if(documentName === "" || documentName === null){
         alert("Please enter a document name");
@@ -41,13 +40,20 @@ async function createGoogleDoc(title, token, callback) {
         },
         body: JSON.stringify({ title })
     })
-    let doc = await response.json() 
-    // call the callback function with the document ID as an argument
-    if (doc.documentId) {
-        callback(doc.documentId);
+
+    if (response.ok) {
+        let doc = await response.json();
+        // call the callback function with the document ID as an argument
+        if (doc.documentId) {
+            callback(doc.documentId);
+        } else {
+            console.error("Error response from API while creating document:", doc);
+            alert(`Error response from API while creating document: ${JSON.stringify(doc)}`);
+        }
     } else {
-        console.error("Error response from API while creating document:", doc);
-        alert("Error response from API while creating document:", doc);
+        let errorResponse = await response.json();
+        console.error("Error response from API while creating document:", JSON.stringify(errorResponse));
+        alert(`Error response from API while creating document: ${JSON.stringify(errorResponse)}`);
     }
 }
 
