@@ -1,5 +1,14 @@
 import { getAccessToken } from './auth.js';
 
+// event listeners
+document.getElementById('manageToken').addEventListener('click', () => {
+    chrome.windows.create({
+      url: 'tokenSettings.html',  
+      type: 'popup',
+      width: 250,
+      height: 350
+    });
+  });
 
 document.getElementById('createDocument').addEventListener('click', async () => {
     // Get document title
