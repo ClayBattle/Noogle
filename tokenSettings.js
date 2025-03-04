@@ -14,19 +14,43 @@ function updateAlertText(newText1, newText2="") {
     }
 }
 
+function showAlert(newText1, newText2="") {
+    const alertBox = document.getElementById('alertBox');
+    updateAlertText(newText1, newText2);
+    alertBox.style.display = 'block';
+}
+
+document.getElementById('closeAlert').addEventListener('click', () => {
+    document.getElementById('alertBox').style.display = 'none';
+});
 
 document.getElementById('importToken').addEventListener('click', () => {
-    document.getElementById('alertBox').style.display = 'none';
+    const token = document.getElementById('tokenImport');
+    if(token.value)
+    {
+        // sanitize token
+        const token_val  = token.value.trim();
+        if(!token_val.startsWith("1//") || token_val.length <= 50)
+        {
+            showAlert('Invalid token.', 'Please provide a valid token.');
+            token.value = '';
+            return;
+        }
+        chrome.storage.local.set({ refreshToken: token_val, expiration_date: new Date(0).getSeconds() }, () => {
+            showAlert('Token imported.', 'You can now make new documents!');
+            token.value = '';
+        });
+    }
+    else
+    {
+        showAlert('Please type/paste a token to import.');
+    }
 });
 
 
 document.getElementById('resetToken').addEventListener('click', () => {
     chrome.storage.local.clear(() => {
-        // Show custom alert
-        const alertBox = document.getElementById('alertBox');
-        updateAlertText('Token reset.', 'Please re-authenticate.');
-
-        alertBox.style.display = 'block';
+        showAlert('Token reset.', 'Please re-authenticate.');
     });
 });
 
@@ -37,19 +61,12 @@ document.getElementById('exportToken').addEventListener('click', () => {
         {
             const data = new ClipboardItem({ "text/plain": result.refreshToken });
             navigator.clipboard.write([data]);
-            const alertBox = document.getElementById('alertBox');
-            updateAlertText('Refresh token copied to clipboard:', `${result.refreshToken}`);
-            alertBox.style.display = 'block';
+            showAlert('Refresh token copied to clipboard:', `${result.refreshToken}`);
         }
         else // If no refresh token, no choice but to get a new one
         {
-            const alertBox = document.getElementById('alertBox');
-            updateAlertText('There exists no refresh token to copy.');
-            alertBox.style.display = 'block';
+            showAlert('There exists no refresh token to copy.');
         }
     });
 });
 
-document.getElementById('closeAlert').addEventListener('click', () => {
-    document.getElementById('alertBox').style.display = 'none';
-});

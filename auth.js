@@ -51,7 +51,7 @@ async function authenticate(callback) {
             });
 
             const tokenData = await tokenResponse.json();
-            console.log("Token response:", tokenData); // Log full response for debugging
+            // console.log("Token response:", tokenData); // Log full response for debugging
 
             const accessToken = tokenData.access_token;
             const refreshToken = tokenData.refresh_token; // TODO: Encrypt this before storing it for better security
@@ -59,9 +59,9 @@ async function authenticate(callback) {
             const expiration_date = Date.now() + expiresIn * 1000;
 
             if (accessToken) {
-                console.log("Access token retrieved:", accessToken);
+                // console.log("Access token retrieved:", accessToken);
                 if (refreshToken) {
-                    console.log("Refresh token retrieved:", refreshToken);
+                    // console.log("Refresh token retrieved:", refreshToken);
                 } else {
                     console.warn("No refresh token returned. User may have already authorized the app.");
                 }
@@ -139,7 +139,7 @@ export async function getAccessToken(callback) {
         if (result.accessToken &&  result.expiration_date && Date.now() < result.expiration_date) {
             callback(result.accessToken);
         } 
-        else if(result.expiration_date && Date.now() >= result.expiration_date)
+        else if(result.expiration_date != null && Date.now() >= result.expiration_date)
         {
             chrome.storage.local.get(["refreshToken"], (result) => 
             {
