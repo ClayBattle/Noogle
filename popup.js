@@ -6,7 +6,7 @@ document.getElementById('manageToken').addEventListener('click', () => {
       url: 'tokenSettings.html',  
       type: 'popup',
       width: 350,
-      height: 350
+      height: 250
     });
   });
 

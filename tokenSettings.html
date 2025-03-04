@@ -4,7 +4,7 @@
   <title>Noogle</title>
   <style>
     body {
-      width: 200px; 
+      width: 300px; 
       font-family: 'Arial', sans-serif;
       text-align: center;
       padding: 10px;
@@ -18,8 +18,8 @@
     }
   
     button {
+      padding: 15px; 
       margin: 10px;
-      padding: 15px 20px; 
       font-size: 16px; 
       background-color: #1E90FF;
       border: none;
@@ -39,13 +39,12 @@
     }
 
     .reset-button {
-      margin: 10px;
-      padding: 10px 0px; 
+      padding: 10px; 
       font-size: 14px;
       font-family: 'Courier New', monospace; 
       background-color: #D32F2F; 
       border: 1px solid #B71C1C;  
-      border-radius: 8px;
+      border-radius: 12px;
       color: #FFFFFF;
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.2s ease; 
@@ -64,7 +63,7 @@
     textarea
     {
       margin: 10px;
-      padding: 15px 20px; 
+      padding: 15px 15px; 
       width: 80%;
       font-size: 16px; 
       background-color: #2C2C2C; 
@@ -101,8 +100,9 @@
     .button-container {
       display: flex;
       justify-content: space-between; /* Space out buttons */
-      width: 100%;
+      width: 90%;
       margin-top: 10px;
+      margin: 10px auto; /* Centers the container horizontally */
     }
 
     .custom-alert {
@@ -117,11 +117,16 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.5); 
       z-index: 1000;
       text-align: center;
+      overflow-y: auto;
+      max-height: 200px; /* Limits height to trigger scrolling in case of large alert*/
     }
 
     .custom-alert p {
       margin: 0 0 10px 0; 
       font-size: 20px;
+      overflow-wrap: break-word; 
+      white-space: normal; 
+      max-width: 100%; 
     }
 
     .custom-alert button:hover {
@@ -137,7 +142,7 @@
   </style>
 </head>
 <body>
-  <textarea id="documentName" rows="1" cols="20" placeholder="Enter doc name"></textarea>
+  <textarea id="tokenImport" rows="1" cols="20" placeholder="Access Token"></textarea>
   <div class="button-container">
     <button id="resetToken" class="reset-button">Clear Tokens</button>  
     <button id="importToken" class="import-button">Import Token</button>  

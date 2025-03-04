@@ -27,11 +27,8 @@ Icon - https://www.rawpixel.com/image/6479591/png-sticker-book
 
 
 ## Todo-list where to resume:
-1. Program Cache wipe button
-2. Manual token entry & encryption
-3. Fix issue where auth refresh token is inconsistent between two browsers & more secure token storage - see confluence.
-3. 
-4. 
+1. Manual token entry
+2. Fix issue where auth refresh token is inconsistent between two browsers & more secure token storage - see confluence.
 
 n. Placing file in its own directory option... TODO when I figure out how I want to do folders in the future
 * Specifically, need to explore what folders I want, and how I want to maintain them. especially important for  meeting notes and initiative exploration type notes like research on stocks. Additionally, the ability to create (NOT delete) folders would be really nice. Ideally if I'm making an initiative related note I'll link it in its confluence document. Or maybe I'll end up prefering the google docs and drive org approach best. I really don't know. We will have to seee
