@@ -5,7 +5,7 @@ document.getElementById('manageToken').addEventListener('click', () => {
     chrome.windows.create({
       url: 'tokenSettings.html',  
       type: 'popup',
-      width: 250,
+      width: 350,
       height: 350
     });
   });

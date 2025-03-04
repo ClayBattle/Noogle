@@ -38,27 +38,28 @@
       background-color: #4169E1; /* Darker blue when button is pressed */
     }
 
-    .token-button {
+    .reset-button {
       margin: 10px;
       padding: 10px 0px; 
       font-size: 14px;
       font-family: 'Courier New', monospace; 
-      background-color: #444; 
-      border: 1px solid #888; 
+      background-color: #D32F2F; 
+      border: 1px solid #B71C1C;  
       border-radius: 8px;
-      color: #D3D3D3;
+      color: #FFFFFF;
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.2s ease; 
     }
 
-    .token-button:hover {
-      background-color: #555; 
+    .reset-button:hover {
+      background-color: #C2185B; 
       transform: scale(1.05); 
     }
 
-    .token-button:active {
-      background-color: #666; 
+    .reset-button:active {
+      background-color: #9C1B1B;
     }
+
 
     textarea
     {
@@ -104,6 +105,34 @@
       margin-top: 10px;
     }
 
+    .custom-alert {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      width: 280px; 
+      background: #2C2C2C; 
+      border: 1px solid #1E90FF; 
+      border-radius: 10px;
+      padding: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.5); 
+      z-index: 1000;
+      text-align: center;
+    }
+
+    .custom-alert p {
+      margin: 0 0 10px 0; 
+      font-size: 20px;
+    }
+
+    .custom-alert button:hover {
+      background-color: #4682B4; 
+      transform: scale(1.05);
+    }
+
+    .custom-alert button:active {
+      background-color: #4169E1; 
+    }
+
     
   </style>
 </head>
@@ -113,6 +142,15 @@
     <button id="resetToken" class="reset-button">Clear Tokens</button>  
     <button id="importToken" class="import-button">Import Token</button>  
     <button id="exportToken" class="export-button">Export Token</button>  
+  </div>
+  <div id="alertBox" class="custom-alert" style="display: none;">
+    <p>
+      Token reset.
+    </p>
+    <p>
+      Please re-authenticate.
+    </p>
+    <button id="closeAlert">OK</button>
   </div>
   <script type="module" src="tokenSettings.js"></script>
 </body>
