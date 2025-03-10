@@ -104,40 +104,48 @@ async function fetchFolders() {
 
 document.addEventListener('DOMContentLoaded', async () => {
     const folderInput = document.getElementById('folder-input');
-    const suggestionsBox = document.getElementById('suggestions');
   
     // Fetch folders from Google Drive API once at startup
     const folders = await fetchFolders();
       
     // composed within the other event listener to get access to folders var
+    // Runs whenever the user types something in the folder input
     folderInput.addEventListener('input', () => {
         const query = folderInput.value.toLowerCase();
+        const suggestionsBox = document.getElementById('suggestions');
         suggestionsBox.innerHTML = '';
 
         const matches = folders.filter( folder => folder.name.toLowerCase().includes(query) );
 
         matches.forEach(folder => {
-        const div = document.createElement('div');
-        div.textContent = folder.name;
-        div.onclick = () => {
-            folderInput.value = folder.name;
-            suggestionsBox.innerHTML = '';
-            // Store selected folder ID
-            selectedFolderId = folder.id; // TODO: this isnt being stored anywhere 
-        };
-        suggestionsBox.appendChild(div);
+            addSuggestion(folder.name, folder.id);
         });
   
-    //   if (matches.length === 0) {
-    //     const div = document.createElement('div');
-    //     div.textContent = 'Place in "Needs a Home"';
-    //     div.onclick = () => {
-    //       folderInput.value = 'To Be Organized / Needs a Home';
-    //       suggestionsBox.innerHTML = '';
-    //       selectedFolderId = 'YOUR_NEEDS_A_HOME_FOLDER_ID';
-    //     };
-    //     suggestionsBox.appendChild(div);
-    //   }
+        if (matches.length === 0) {
+            addSuggestion('To Be Organized / Needs a Home', 'YOUR_NEEDS_A_HOME_FOLDER_ID')
+        }
     });
 
 });
+
+// Adds a suggestion to the suggestions box
+function addSuggestion(folderName, folderId) {
+    const suggestionsBox = document.getElementById('suggestions');
+    const computedStyle = window.getComputedStyle(suggestionsBox);
+    if(computedStyle.display === 'none')
+    {
+        suggestionsBox.style.display = 'block';
+    }
+
+    const div = document.createElement('div');
+    div.textContent = folderName;
+    div.onclick = () => {
+        const folderInput = document.getElementById('folder-input');
+        folderInput.value = folderName;
+        suggestionsBox.innerHTML = '';
+        suggestionsBox.style.display = 'none';
+        // Store selected folder ID
+        selectedFolderId = folderId; // TODO: this isnt being stored anywhere
+    };
+    suggestionsBox.appendChild(div);
+}

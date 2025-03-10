@@ -91,6 +91,7 @@
       color: #D3D3D3;
       position: absolute;
       z-index: 1000;
+      display: none;
     }
     #suggestions div {
       padding: 10px;
@@ -137,7 +138,7 @@
 </head>
 <body>
   <textarea id="documentName" rows="1" cols="20" placeholder="Document Name"></textarea>
-  <input type="text" id="folder-input" placeholder="Type folder name..."> <!-- todo - make this invisible by default-->
+  <input type="text" id="folder-input" placeholder="Type folder name...">
   <div id="suggestions"></div>
   <div class="button-container">
     <button id="manageToken" class="token-button">Token</button>  
