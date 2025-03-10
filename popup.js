@@ -1,6 +1,6 @@
 import { getAccessToken } from './auth.js';
 
-let selectedFolderId = null;
+let selectedFolder = {id: null, name: "Root"};
 
 // event listeners
 document.getElementById('manageToken').addEventListener('click', () => {
@@ -48,7 +48,7 @@ async function createGoogleDoc(title, token, callback) {
     const metadata = {
         name: title,
         mimeType: 'application/vnd.google-apps.document',
-        parents: [selectedFolderId] // if this is null, doc will be created in root dir
+        parents: [selectedFolder.id] // if this is null, doc will be created in root dir 
     };
 
     const response = await fetch(url, {
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             addSuggestion('Root', null) // Root Directory
         }
         else if(matches.length === 1){
-            selectedFolderId = matches[0].id;
+            updateSelectedFolder(matches[0].name, matches[0].id);
         }
     });
 
@@ -179,7 +179,14 @@ function addSuggestion(folderName, folderId) {
         suggestionsBox.innerHTML = '';
         suggestionsBox.style.display = 'none';
         // Store selected folder ID
-        selectedFolderId = folderId;
+        updateSelectedFolder(folderName, folderId);
     };
     suggestionsBox.appendChild(div);
+}
+
+function updateSelectedFolder(folderName, folderId){
+    selectedFolder.id = folderId;
+    selectedFolder.name = folderName;
+    const selectedFolderText = document.getElementById('selectedFolderText');
+    selectedFolderText.textContent = folderName;
 }

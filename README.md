@@ -26,7 +26,7 @@ Spawned out of the need for 1. better Google Drive document organization and 2. 
 Icon - https://www.rawpixel.com/image/6479591/png-sticker-book
 
 ## Todo-list where to resume:
-1. show parent folders in the suggestions?
+1. Show parent folders in the suggestions?
 
 * Ideally if I'm making an initiative related note I'll link it in its confluence document. Or maybe I'll end up prefering the google docs and drive org approach best. I really don't know. We will have to seee
 

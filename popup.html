@@ -17,6 +17,31 @@
       justify-content: center;
       max-height: 400px;
     }
+
+    /*Must specify this field or the styles will not apply*/        
+    ::-webkit-scrollbar{
+      width: 10px;
+      cursor: pointer;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: #2C2C2C
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #4b5563;
+      border-radius: 12px;
+    }
+
+    /* Handle on hover, eyeballed color to be similar to Linear's hover*/
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #5c697e;
+    }
+
+    ::-webkit-scrollbar-corner {
+      background-color: #2C2C2C
+    }
+
   
     button {
       margin: 10px;
@@ -61,6 +86,13 @@
       background-color: #666; 
     }
 
+    .button-container {
+      display: flex;
+      justify-content: space-between; /* Space out buttons */
+      width: 100%;
+      margin-top: 5px;
+    }
+
     textarea
     {
       margin: 10px;
@@ -85,7 +117,7 @@
     }
     #suggestions {
       border: 1px solid #1E90FF;
-      border-radius: 4px;
+      border-radius: 6px;
       max-height: 150px;
       overflow-y: auto;
       background-color: #2C2C2C; 
@@ -101,49 +133,41 @@
       background-color: #555; 
     }
 
-
-    /*Must specify this field or the styles will not apply*/        
-    ::-webkit-scrollbar{
-      width: 10px;
-      cursor: pointer;
-    }
-
-    ::-webkit-scrollbar-track {
-      background-color: #2C2C2C
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background-color: #4b5563;
-      border-radius: 12px;
-    }
-
-    /* Handle on hover, eyeballed color to be similar to Linear's hover*/
-    ::-webkit-scrollbar-thumb:hover {
-      background-color: #5c697e;
-    }
-
-    ::-webkit-scrollbar-corner {
-      background-color: #2C2C2C
-    }
-
-    .button-container {
+    #selectedFolderDiv{
       display: flex;
-      justify-content: space-between; /* Space out buttons */
-      width: 100%;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #1E90FF;
+      border-radius: 12px;
+      padding-left: 5px;
+      padding-right: 5px;
       margin-top: 5px;
     }
+    
+    #selectedFolderLabel {
+      color: gray;  
+      font-weight: bold;
+      margin-right: 5px;
+    }
 
+    #selectedFolderText {
+      color: gray;  
+    }
     
   </style>
 </head>
-<body>
-  <textarea id="documentName" rows="1" cols="20" placeholder="Document Name"></textarea>
-  <input type="text" id="folder-input" placeholder="Type folder name...">
-  <div id="suggestions"></div>
-  <div class="button-container">
-    <button id="manageToken" class="token-button">Token</button>  
-    <button id="createDocument">Create Document</button>
-  </div>
-  <script type="module" src="popup.js"></script>
-</body>
+  <body>
+    <textarea id="documentName" rows="1" cols="20" placeholder="Document Name"></textarea>
+    <input type="text" id="folder-input" placeholder="Folder Name...">
+    <div id="suggestions"></div>
+    <div id="selectedFolderDiv">
+      <p id="selectedFolderLabel">Selected: </p>
+      <p id="selectedFolderText">Root</p>
+    </div>
+    <div class="button-container">
+      <button id="manageToken" class="token-button">Token</button>  
+      <button id="createDocument">Create Document</button>
+    </div>
+    <script type="module" src="popup.js"></script>
+  </body>
 </html>
