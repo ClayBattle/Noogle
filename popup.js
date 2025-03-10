@@ -159,7 +159,7 @@ document.getElementById('folder-input').addEventListener('blur', () => {
     const suggestionsBox = document.getElementById('suggestions');
     setTimeout(() => { // Delay lets user click on the suggestion before it dissapears
         suggestionsBox.style.display = 'none';
-    }, 100); // ms
+    }, 100); // in ms
 });
 
 // Adds a suggestion to the suggestions box
@@ -178,12 +178,12 @@ function addSuggestion(folderName, folderId) {
         folderInput.value = folderName;
         suggestionsBox.innerHTML = '';
         suggestionsBox.style.display = 'none';
-        // Store selected folder ID
         updateSelectedFolder(folderName, folderId);
     };
     suggestionsBox.appendChild(div);
 }
 
+// Updates UI and internally stores ID and name of the selected folder
 function updateSelectedFolder(folderName, folderId){
     selectedFolder.id = folderId;
     selectedFolder.name = folderName;
