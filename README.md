@@ -26,10 +26,7 @@ Spawned out of the need for 1. better Google Drive document organization and 2. 
 Icon - https://www.rawpixel.com/image/6479591/png-sticker-book
 
 ## Todo-list where to resume:
-1.. Placing file in its own directory option...
-* I'm envisioning a textbook that I can type in, where asI type suggestions auto populate for folders. Then, I can select the one I want it placed in. IT should default to the needs a home folder.
-* fetch folder list on open
-
+1. show parent folders in the suggestions?
 
 * Ideally if I'm making an initiative related note I'll link it in its confluence document. Or maybe I'll end up prefering the google docs and drive org approach best. I really don't know. We will have to seee
 

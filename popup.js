@@ -1,5 +1,7 @@
 import { getAccessToken } from './auth.js';
 
+let selectedFolderId = null;
+
 // event listeners
 document.getElementById('manageToken').addEventListener('click', () => {
     chrome.windows.create({
@@ -41,22 +43,30 @@ document.getElementById('createDocument').addEventListener('click', async () => 
 
 async function createGoogleDoc(title, token, callback) {
     // Create a new Google Doc with the given title
-    let response = await fetch('https://docs.googleapis.com/v1/documents', {
+    const url = 'https://www.googleapis.com/drive/v3/files';
+    
+    const metadata = {
+        name: title,
+        mimeType: 'application/vnd.google-apps.document',
+        parents: [selectedFolderId] // if this is null, doc will be created in root dir
+    };
+
+    const response = await fetch(url, {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ title })
-    })
+        body: JSON.stringify(metadata)
+    });
 
     if (response.ok) {
         let doc = await response.json();
-        // call the callback function with the document ID as an argument
-        if (doc.documentId) {
-            callback(doc.documentId);
+        // call the callback function with the document ID as an argument (Opens a new tab with that document)
+        if (doc.id) {
+            callback(doc.id);
         } else {
-            console.error("Error response from API while creating document:", doc);
+            console.error("Error response from API while creating document:", JSON.stringify(doc));
             alert(`Error response from API while creating document: ${JSON.stringify(doc)}`);
         }
     } else {
@@ -102,11 +112,15 @@ async function fetchFolders() {
     });
 }
 
+
+
 document.addEventListener('DOMContentLoaded', async () => {
     const folderInput = document.getElementById('folder-input');
   
     // Fetch folders from Google Drive API once at startup
     const folders = await fetchFolders();
+    // This is folder name dependant. Find a way to make things not break if this changes?
+    const defaultFolder = folders.find(folder => folder.name === 'To Be Organized / Needs a Home'); 
       
     // composed within the other event listener to get access to folders var
     // Runs whenever the user types something in the folder input
@@ -121,8 +135,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             addSuggestion(folder.name, folder.id);
         });
   
+        // always suggest the default folder and root directory if nothing else matches
         if (matches.length === 0) {
-            addSuggestion('To Be Organized / Needs a Home', 'YOUR_NEEDS_A_HOME_FOLDER_ID')
+            addSuggestion(defaultFolder.name, defaultFolder.id)
+            addSuggestion('Root', null) // Root Directory
+        }
+        else if(matches.length === 1){
+            selectedFolderId = matches[0].id;
         }
     });
 
@@ -160,7 +179,7 @@ function addSuggestion(folderName, folderId) {
         suggestionsBox.innerHTML = '';
         suggestionsBox.style.display = 'none';
         // Store selected folder ID
-        selectedFolderId = folderId; // TODO: this isnt being stored anywhere
+        selectedFolderId = folderId;
     };
     suggestionsBox.appendChild(div);
 }
