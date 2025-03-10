@@ -36,4 +36,4 @@ Icon - https://www.rawpixel.com/image/6479591/png-sticker-book
 ### other:
 2. looking into how templates work
 3. more secure token storage 
-4. restrict token perms (noogle shouldnt be able to delete)
+4. restrict token perms (noogle shouldnt be able to delete. see add and remove scopes)

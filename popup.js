@@ -66,5 +66,82 @@ async function createGoogleDoc(title, token, callback) {
     }
 }
 
+async function fetchFolders() {
+    try {
+        await getAccessToken(async (token) => {
+            if (!token) {
+                alert("Authentication failed. Cannot fetch folders.");
+                return;
+            }
 
-// function to move to folder.... or just make it in there in the first place?
+            const response = await fetch("https://www.googleapis.com/drive/v3/files?q=mimeType%3D%27application%2Fvnd.google-apps.folder%27&fields=files(id%2Cname)",
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            if (!data.files || data.files.length === 0) {
+                console.warn("No folders found.");
+                return [];
+            }
+            console.log("Fetched folders:", data.files);
+            return data.files; // Array of {id, name}
+            
+        });
+        
+    } catch (error) {
+        console.error("Error fetching folders:", error);
+        return [];
+    }
+    
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const folderInput = document.getElementById('folder-input');
+    const suggestionsBox = document.getElementById('suggestions');
+  
+    // Fetch folders from Google Drive API once at startup
+    const folders = await fetchFolders();
+    console.log("Loaded folders:", folders);
+  
+    
+    // composed within the other event listener to get access to folders var
+    folderInput.addEventListener('input', () => {
+        const query = folderInput.value.toLowerCase();
+        suggestionsBox.innerHTML = '';
+        alert(folders)
+
+        const matches = folders.filter(folder => 
+        folder.name.toLowerCase().includes(query)
+        );
+
+        matches.forEach(folder => {
+        const div = document.createElement('div');
+        div.textContent = folder.name;
+        div.onclick = () => {
+            folderInput.value = folder.name;
+            suggestionsBox.innerHTML = '';
+            // Store selected folder ID
+            selectedFolderId = folder.id;
+        };
+        suggestionsBox.appendChild(div);
+        });
+  
+    //   if (matches.length === 0) {
+    //     const div = document.createElement('div');
+    //     div.textContent = 'Place in "Needs a Home"';
+    //     div.onclick = () => {
+    //       folderInput.value = 'To Be Organized / Needs a Home';
+    //       suggestionsBox.innerHTML = '';
+    //       selectedFolderId = 'YOUR_NEEDS_A_HOME_FOLDER_ID';
+    //     };
+    //     suggestionsBox.appendChild(div);
+    //   }
+    });
+
+});

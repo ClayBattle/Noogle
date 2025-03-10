@@ -11,7 +11,12 @@ async function authenticate(callback) {
 
     const CLIENT_ID = raw_json.web.client_id;
     const CLIENT_SECRET = raw_json.web.client_secret;
-    const SCOPES = "https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/documents";
+    /*
+        https://www.googleapis.com/auth/drive.metadata.readonly: This scope allows your app to view file and folder metadata, including the ability to list folders, without modifying them.
+        https://www.googleapis.com/auth/drive.file: This scope allows your app to view and manage files that it has created or opened with the app. It does not grant access to all files and folders in the user's Google Drive, only those that your app has specifically interacted with.
+        https://www.googleapis.com/auth/documents: This scope is specific to Google Docs API and grants access to Google Docs documents. It does not affect the ability to list or manage files and folders on Google Drive.
+    */
+    const SCOPES = "https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/documents";
     const redirectUri = `https://${chrome.runtime.id}.chromiumapp.org/`;
 
     // Include access_type=offline and prompt=consent in the authorization URL
