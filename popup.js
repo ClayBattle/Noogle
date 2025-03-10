@@ -8,7 +8,7 @@ document.getElementById('manageToken').addEventListener('click', () => {
       width: 350,
       height: 250
     });
-  });
+});
 
 document.getElementById('createDocument').addEventListener('click', async () => {
     // Get document title
@@ -126,6 +126,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
+});
+
+document.getElementById('folder-input').addEventListener('click', () => {
+    const suggestionsBox = document.getElementById('suggestions');
+    if(suggestionsBox.innerHTML != '') // avoid displaying empty suggestions box
+    {
+        suggestionsBox.style.display = 'block';
+    }
+});
+
+document.getElementById('folder-input').addEventListener('blur', () => {
+    const suggestionsBox = document.getElementById('suggestions');
+    setTimeout(() => { // Delay lets user click on the suggestion before it dissapears
+        suggestionsBox.style.display = 'none';
+    }, 100); // ms
 });
 
 // Adds a suggestion to the suggestions box
