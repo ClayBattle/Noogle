@@ -72,6 +72,33 @@
       color: #D3D3D3;
     }
 
+    #folder-input {
+      margin: 10px;
+      padding: 15px 20px; 
+      width: 80%;
+      font-size: 16px; 
+      background-color: #2C2C2C; 
+      border: 1px solid #1E90FF;
+      border-radius: 12px;
+      color: #D3D3D3;
+    }
+    #suggestions {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      max-height: 150px;
+      overflow-y: auto;
+      background-color: white;
+      position: absolute;
+      z-index: 1000;
+    }
+    #suggestions div {
+      padding: 10px;
+      cursor: pointer;
+    }
+    #suggestions div:hover {
+      background-color: #f0f0f0;
+    }
+
 
     /*Must specify this field or the styles will not apply*/        
     ::-webkit-scrollbar{
@@ -109,7 +136,8 @@
 </head>
 <body>
   <textarea id="documentName" rows="1" cols="20" placeholder="Document Name"></textarea>
-  <textarea id="documentLocation" rows="2" cols="20" placeholder="Document Location"></textarea>
+  <input type="text" id="folder-input" placeholder="Type folder name...">
+  <div id="suggestions"></div>
   <div class="button-container">
     <button id="manageToken" class="token-button">Token</button>  
     <button id="createDocument">Create Document</button>
