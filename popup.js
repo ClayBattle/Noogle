@@ -67,38 +67,39 @@ async function createGoogleDoc(title, token, callback) {
 }
 
 async function fetchFolders() {
-    try {
-        await getAccessToken(async (token) => {
+    // promise that resolves with the folders array
+    return new Promise((resolve, reject) => {
+        getAccessToken(async (token) => {
             if (!token) {
                 alert("Authentication failed. Cannot fetch folders.");
-                return;
+                return reject("Authentication failed");
             }
 
-            const response = await fetch("https://www.googleapis.com/drive/v3/files?q=mimeType%3D%27application%2Fvnd.google-apps.folder%27&fields=files(id%2Cname)",
-                {
+            try {
+                const response = await fetch("https://www.googleapis.com/drive/v3/files?q=mimeType%3D%27application%2Fvnd.google-apps.folder%27&fields=files(id%2Cname)", {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
-            );
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+
+                const data = await response.json();
+                if (!data.files || data.files.length === 0) {
+                    console.warn("No folders found.");
+                    return resolve([]);
+                }
+
+                console.log("Fetched folders:", data.files);
+                resolve(data.files); // Array of {id, name}
+            } catch (error) {
+                console.error("Error fetching folders:", error);
+                reject(error);
             }
-            const data = await response.json();
-            if (!data.files || data.files.length === 0) {
-                console.warn("No folders found.");
-                return [];
-            }
-            console.log("Fetched folders:", data.files);
-            return data.files; // Array of {id, name}
-            
         });
-        
-    } catch (error) {
-        console.error("Error fetching folders:", error);
-        return [];
-    }
-    
+    });
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
