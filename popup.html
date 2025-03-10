@@ -83,11 +83,12 @@
       color: #D3D3D3;
     }
     #suggestions {
-      border: 1px solid #ccc;
+      border: 1px solid #1E90FF;
       border-radius: 4px;
       max-height: 150px;
       overflow-y: auto;
-      background-color: white;
+      background-color: #2C2C2C; 
+      color: #D3D3D3;
       position: absolute;
       z-index: 1000;
     }
@@ -96,7 +97,7 @@
       cursor: pointer;
     }
     #suggestions div:hover {
-      background-color: #f0f0f0;
+      background-color: #555; 
     }
 
 
@@ -115,7 +116,7 @@
       border-radius: 12px;
     }
 
-    /* Handle on hover, eyeballed color to be similar to linear's hover*/
+    /* Handle on hover, eyeballed color to be similar to Linear's hover*/
     ::-webkit-scrollbar-thumb:hover {
       background-color: #5c697e;
     }
@@ -136,7 +137,7 @@
 </head>
 <body>
   <textarea id="documentName" rows="1" cols="20" placeholder="Document Name"></textarea>
-  <input type="text" id="folder-input" placeholder="Type folder name...">
+  <input type="text" id="folder-input" placeholder="Type folder name..."> <!-- todo - make this invisible by default-->
   <div id="suggestions"></div>
   <div class="button-container">
     <button id="manageToken" class="token-button">Token</button>  

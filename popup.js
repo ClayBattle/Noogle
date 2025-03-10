@@ -108,18 +108,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   
     // Fetch folders from Google Drive API once at startup
     const folders = await fetchFolders();
-    console.log("Loaded folders:", folders);
-  
-    
+      
     // composed within the other event listener to get access to folders var
     folderInput.addEventListener('input', () => {
         const query = folderInput.value.toLowerCase();
         suggestionsBox.innerHTML = '';
-        alert(folders)
 
-        const matches = folders.filter(folder => 
-        folder.name.toLowerCase().includes(query)
-        );
+        const matches = folders.filter( folder => folder.name.toLowerCase().includes(query) );
 
         matches.forEach(folder => {
         const div = document.createElement('div');
@@ -128,7 +123,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             folderInput.value = folder.name;
             suggestionsBox.innerHTML = '';
             // Store selected folder ID
-            selectedFolderId = folder.id;
+            selectedFolderId = folder.id; // TODO: this isnt being stored anywhere 
         };
         suggestionsBox.appendChild(div);
         });
