@@ -26,6 +26,7 @@ Spawned out of the need for 1. better Google Drive document organization and 2. 
 Icon - https://www.rawpixel.com/image/6479591/png-sticker-book
 
 ## Todo-list where to resume:
+0. Toggable format (defaults to gdoc, would like to be able to select sheets, slides, etc.). Prob low effort too.
 1. Show parent folders in the suggestions?
 2. looking into how templates work
 3. more secure token storage 
