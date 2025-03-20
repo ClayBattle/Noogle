@@ -129,7 +129,7 @@ async function getNewAccessToken(refresh_token, callback)
                 callback(accessToken);
             });
         } else {
-            console.error("Failed to refresh access token:", tokenData);
+            console.error("Failed to refresh access token:", JSON.stringify(tokenData));
             alert("Failed to refresh access token.");
         }
     } catch (error) {
