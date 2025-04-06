@@ -26,9 +26,9 @@ Spawned out of the need for 1. better Google Drive document organization and 2. 
 Icon - https://www.rawpixel.com/image/6479591/png-sticker-book
 
 ## Todo-list where to resume:
+-1. Automatic get new auth token flow when expiration (requires tracking of expiration date and caching it)
 0. Toggable format (defaults to gdoc, would like to be able to select sheets, slides, etc.). Prob low effort too.
 1. Show parent folders in the suggestions?
 2. looking into how templates work
-3. more secure token storage 
-4. restrict token perms (noogle shouldnt be able to delete. see add and remove scopes)
+3. restrict token perms (noogle shouldnt be able to delete. see add and remove scopes)
 * Ideally if I'm making an initiative related note I'll link it in its confluence document. Or maybe I'll end up prefering the google docs and drive org approach best. I really don't know. We will have to seee
