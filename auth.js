@@ -62,6 +62,7 @@ async function authenticate(callback) {
             const refreshToken = tokenData.refresh_token; // TODO: Encrypt this before storing it for better security
             const expiresIn = tokenData.expires_in;
             const expiration_date = Date.now() + expiresIn * 1000;
+            const refreshTokenExpiration = Date.now() + 7 * 24 * 60 * 60 * 1000; // in 7 days we will need a new token
 
             if (accessToken) {
                 // console.log("Access token retrieved:", accessToken);
@@ -71,7 +72,7 @@ async function authenticate(callback) {
                     console.warn("No refresh token returned. User may have already authorized the app.");
                 }
 
-                chrome.storage.local.set({ accessToken, refreshToken, expiration_date }, () => {
+                chrome.storage.local.set({ accessToken, refreshToken, expiration_date, refreshTokenExpiration }, () => {
                     console.log("Tokens stored successfully.");
                     if (callback) callback(accessToken);
                 });
@@ -140,11 +141,11 @@ async function getNewAccessToken(refresh_token, callback)
 
 // Get the access token from storage, or authenticate if not found
 export async function getAccessToken(callback) {
-    chrome.storage.local.get(["accessToken", "expiration_date"], (result) => {
-        if (result.accessToken &&  result.expiration_date && Date.now() < result.expiration_date) {
+    chrome.storage.local.get(["accessToken", "expiration_date", "refreshTokenExpiration"], (result) => {      
+        if (result.accessToken &&  result.expiration_date && Date.now() < result.expiration_date && Date.now() < result.refreshTokenExpiration) {
             callback(result.accessToken);
         } 
-        else if(result.expiration_date != null && Date.now() >= result.expiration_date)
+        else if(result.expiration_date != null && Date.now() >= result.expiration_date && Date.now() < result.refreshTokenExpiration)
         {
             chrome.storage.local.get(["refreshToken"], (result) => 
             {
@@ -158,7 +159,7 @@ export async function getAccessToken(callback) {
                 }
             });
         }
-        else { // user prob hasn't authenticated before
+        else { // user prob hasn't authenticated before or needs to reauthenticate
             authenticate(callback);
         }
     });
