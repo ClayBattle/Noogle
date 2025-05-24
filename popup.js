@@ -15,9 +15,15 @@ document.getElementById('manageToken').addEventListener('click', () => {
 document.getElementById('createDocument').addEventListener('click', async () => {
     // Get document title
     const documentName = document.getElementById('documentName').value;
+    const fileType = document.getElementById('fileType').value;
 
     if(documentName === "" || documentName === null){
         alert("Please enter a document name");
+        return;
+    }
+
+    if(fileType === "" || fileType === null){
+        alert("Please enter a file type");
         return;
     }
 
@@ -29,9 +35,9 @@ document.getElementById('createDocument').addEventListener('click', async () => 
             return;
         }
         // third arg is the callback that runs once the document is created
-        createGoogleDoc(documentName, token, (docId) => {
+        createGoogleDoc(documentName, token, fileType, (docId) => {
             if (docId) {
-                const docUrl = `https://docs.google.com/document/d/${docId}`;
+                const docUrl = getEditorUrl(fileType, docId);
                 console.log(`Google Doc created successfully! Document URL: ${docUrl}`);
                 window.open(docUrl, '_blank'); // "_blank" opens the URL in a new tab
             } else {
@@ -41,13 +47,14 @@ document.getElementById('createDocument').addEventListener('click', async () => 
     });
 });
 
-async function createGoogleDoc(title, token, callback) {
+async function createGoogleDoc(title, token, fileType, callback) {
     // Create a new Google Doc with the given title
     const url = 'https://www.googleapis.com/drive/v3/files';
     
+    // https://developers.google.com/workspace/drive/api/guides/mime-types
     const metadata = {
         name: title,
-        mimeType: 'application/vnd.google-apps.document',
+        mimeType: fileType,
         parents: [selectedFolder.id] // if this is null, doc will be created in root dir 
     };
 
@@ -73,6 +80,24 @@ async function createGoogleDoc(title, token, callback) {
         let errorResponse = await response.json();
         console.error("Error response from API while creating document:", JSON.stringify(errorResponse));
         alert(`Error response from API while creating document: ${JSON.stringify(errorResponse)}`);
+    }
+}
+
+// Function to open the editor for a given file ID and MIME type
+function getEditorUrl(mimeType, fileId) {
+    switch (mimeType) {
+        case "application/vnd.google-apps.document":
+            return `https://docs.google.com/document/d/${fileId}`;
+        case "application/vnd.google-apps.spreadsheet":
+            return `https://docs.google.com/spreadsheets/d/${fileId}`;
+        case "application/vnd.google-apps.presentation":
+            return `https://docs.google.com/presentation/d/${fileId}`;
+        case "application/vnd.google-apps.form":
+            return `https://docs.google.com/forms/d/${fileId}/edit`;
+        case "application/vnd.google-apps.folder":
+            return `https://drive.google.com/drive/folders/${fileId}`;
+        default: //note: untested
+            return `https://drive.google.com/file/d/${fileId}/view`;
     }
 }
 

@@ -153,6 +153,20 @@
     #selectedFolderText {
       color: gray;  
     }
+
+    #fileType {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #1E90FF;
+      color: gray; 
+      cursor: pointer;
+      background-color: #2C2C2C; 
+      border-radius: 12px;
+      padding-left: 5px;
+      padding-right: 5px;
+      margin-top: 10px;
+    }
     
   </style>
 </head>
@@ -164,6 +178,13 @@
       <p id="selectedFolderLabel">Selected: </p>
       <p id="selectedFolderText">Root</p>
     </div>
+    <select id="fileType">
+      <option value="application/vnd.google-apps.document">Docs</option>
+      <option value="application/vnd.google-apps.spreadsheet">Sheets</option>
+      <option value="application/vnd.google-apps.presentation">Slides</option>
+      <option value="application/vnd.google-apps.form">Forms</option>
+      <option value="application/vnd.google-apps.folder">Folder</option>
+    </select>
     <div class="button-container">
       <button id="manageToken" class="token-button">Token</button>  
       <button id="createDocument">Create Document</button>
