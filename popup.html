@@ -64,6 +64,15 @@
       background-color: #4169E1; /* Darker blue when button is pressed */
     }
 
+    button:disabled, button[disabled] {
+      background-color: #444 !important;
+      color: #888 !important;
+      cursor: not-allowed !important;
+      opacity: 0.6;
+      transform: none;
+      box-shadow: none;
+    }
+
     .token-button {
       margin: 10px;
       padding: 10px 0px; 
@@ -187,7 +196,7 @@
     </select>
     <div class="button-container">
       <button id="manageToken" class="token-button">Token</button>  
-      <button id="createDocument">Create Document</button>
+      <button id="createDocumentButton">Create Document</button>
     </div>
     <script type="module" src="popup.js"></script>
   </body>

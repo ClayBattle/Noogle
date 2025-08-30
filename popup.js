@@ -12,18 +12,23 @@ document.getElementById('manageToken').addEventListener('click', () => {
     });
 });
 
-document.getElementById('createDocument').addEventListener('click', async () => {
+document.getElementById('createDocumentButton').addEventListener('click', async () => {
+    const createBtn = document.getElementById('createDocumentButton');
+    createBtn.disabled = true;
+
     // Get document title
     const documentName = document.getElementById('documentName').value;
     const fileType = document.getElementById('fileType').value;
 
     if(documentName === "" || documentName === null){
         alert("Please enter a document name");
+        createBtn.disabled = false;
         return;
     }
 
     if(fileType === "" || fileType === null){
         alert("Please enter a file type");
+        createBtn.disabled = false;
         return;
     }
 
@@ -32,10 +37,12 @@ document.getElementById('createDocument').addEventListener('click', async () => 
     getAccessToken((token) => {
         if (!token) {
             alert("Authentication failed.");
+            createBtn.disabled = false;
             return;
         }
         // third arg is the callback that runs once the document is created
         createGoogleDoc(documentName, token, fileType, (docId) => {
+            createBtn.disabled = false;
             if (docId) {
                 const docUrl = getEditorUrl(fileType, docId);
                 console.log(`Google Doc created successfully! Document URL: ${docUrl}`);
