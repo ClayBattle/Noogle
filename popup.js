@@ -118,24 +118,51 @@ async function fetchFolders() {
             }
 
             try {
-                const response = await fetch("https://www.googleapis.com/drive/v3/files?q=mimeType%3D%27application%2Fvnd.google-apps.folder%27&fields=files(id%2Cname)", {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
+                let allFolders = [];
+                let pageToken = null;
+                
+                // By default, api returns 100 files per page.
+                // Move number to 1000, and loop through all pages to get all folders.
+                do {
+                    const params = new URLSearchParams({
+                        q: "mimeType='application/vnd.google-apps.folder'",
+                        fields: "nextPageToken, files(id, name)",
+                        pageSize: "1000", // max allowed per page
+                    });
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+                    if (pageToken) {
+                        params.set("pageToken", pageToken);
+                    }
 
-                const data = await response.json();
-                if (!data.files || data.files.length === 0) {
+                    const response = await fetch(
+                        `https://www.googleapis.com/drive/v3/files?${params.toString()}`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    );
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+
+                    if (data.files && data.files.length > 0) {
+                        allFolders = allFolders.concat(data.files);
+                    }
+
+                    pageToken = data.nextPageToken || null;
+                } while (pageToken);
+
+                if (allFolders.length === 0) {
                     console.warn("No folders found.");
                     return resolve([]);
                 }
 
-                console.log("Fetched folders:", data.files);
-                resolve(data.files); // Array of {id, name}
+                console.log("Fetched folders:", allFolders);
+                resolve(allFolders); // Array of {id, name}
             } catch (error) {
                 console.error("Error fetching folders:", error);
                 reject(error);
